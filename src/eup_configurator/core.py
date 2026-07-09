@@ -67,6 +67,7 @@ class Configurator:
         self.dir = Path(base_dir).resolve() if base_dir else Path(__file__).parent.resolve()
         self.config: dict = {}
         self.proj_dir = os.getenv("PROJECT_DIRECTORY", os.getcwd())
+        self.config_path = self.dir / self.config_file
         self.load_config()
         self._set_attributes_from_config()
 
@@ -82,13 +83,12 @@ class Configurator:
 
     def load_config(self) -> None:
         """Lädt die Konfiguration aus der YAML-Datei."""
-        config_path = self.dir / self.config_file
 
         try:
-            with open(config_path, "r", encoding="utf-8") as stream:
+            with open(self.config_path, "r", encoding="utf-8") as stream:
                 self.config = yaml.safe_load(stream) or {}
         except FileNotFoundError:
-            print(f"Config file not found: {config_path}. Creating default config.")
+            print(f"Config file not found: {self.config_path}. Creating default config.")
             self.config = {}
             self.save_config()
         except yaml.YAMLError as exc:
