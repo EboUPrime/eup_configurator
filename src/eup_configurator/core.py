@@ -4,7 +4,6 @@ Enthält die Klassen :class:`ConfigElement` und :class:`Configurator`,
 die eine YAML-Konfigurationsdatei laden und einen verschachtelten
 Attributzugriff (dot-notation) darauf ermöglichen.
 """
-
 from __future__ import annotations
 
 import os
