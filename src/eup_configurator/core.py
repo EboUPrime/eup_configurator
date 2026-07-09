@@ -64,7 +64,6 @@ class Configurator:
             Standardmäßig das Verzeichnis dieses Moduls.
         """
         self.config_file = config_file
-        self.dir = Path(base_dir).resolve() if base_dir else Path(__file__).parent.resolve()
         self.config: dict = {}
         self.proj_dir = os.getenv("PROJECT_DIRECTORY", os.getcwd())
         self.config_path = os.path.join(self.proj_dir, self.config_file)
@@ -173,10 +172,9 @@ class Configurator:
 
     def save_config(self) -> None:
         """Speichert die aktuelle Konfiguration in die YAML-Datei."""
-        config_path = self.dir / self.config_file
 
         try:
-            with open(config_path, "w", encoding="utf-8") as file:
+            with open(self.config_path, "w", encoding="utf-8") as file:
                 yaml.safe_dump(self.config, file, default_flow_style=False, allow_unicode=True)
         except IOError as exc:
             print(f"Error saving config file: {exc}")
