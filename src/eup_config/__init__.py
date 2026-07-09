@@ -1,4 +1,4 @@
-from src.eup_config.demo import print_eup_hi
+from .eup_config.demo import print_eup_hi
 
 
 
